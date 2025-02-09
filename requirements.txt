@@ -2,4 +2,3 @@ fastapi
 uvicorn
 selenium
 webdriver-manager
-google-chrome-stable
