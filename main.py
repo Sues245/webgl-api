@@ -3,9 +3,9 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
-import os
 import time
 import base64
+import os
 
 # Initialize FastAPI
 app = FastAPI()
@@ -20,7 +20,7 @@ def capture_webgl_screenshot():
     chrome_options.add_argument("--use-gl=swiftshader")
 
     # Manually set Chrome binary path (important for Render!)
-    chrome_options.binary_location = "/usr/bin/google-chrome-stable"
+    chrome_options.binary_location = "/usr/bin/google-chrome"
 
     # Corrected WebDriver setup
     service = Service(ChromeDriverManager().install())
