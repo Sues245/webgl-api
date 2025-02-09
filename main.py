@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 import base64
@@ -17,13 +18,9 @@ def capture_webgl_screenshot():
     chrome_options.add_argument("--enable-webgl")
     chrome_options.add_argument("--use-gl=swiftshader")
 
-    # Use webdriver-manager to get ChromeDriver automatically
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
-
-service = Service(ChromeDriverManager().install())
-driver = webdriver.Chrome(service=service, options=chrome_options)
-
+    # Corrected WebDriver setup
+    service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service, options=chrome_options)
 
     try:
         # Load WebGL website
@@ -38,7 +35,7 @@ driver = webdriver.Chrome(service=service, options=chrome_options)
         with open(screenshot_path, "rb") as image_file:
             base64_image = base64.b64encode(image_file.read()).decode("utf-8")
 
-        # Extract WebGL-related content (modify this for specific WebGL data)
+        # Extract WebGL-related content
         webgl_text = driver.find_element("xpath", "//*[@id='info']").text
 
     finally:
