@@ -32,7 +32,7 @@ def capture_webgl_screenshot():
 
     try:
         # Load WebGL website
-        driver.get("https://webglreport.com/")
+        driver.get("https://get.webgl.org/")
         time.sleep(5)  # Ensure full page load
 
         # Screenshot and save
