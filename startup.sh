@@ -1,10 +1,13 @@
 #!/bin/bash
 set -e
 
-echo "Installing Google Chrome..."
-curl -sSL https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmor -o /usr/share/keyrings/google-chrome-keyring.gpg
-echo 'deb [signed-by=/usr/share/keyrings/google-chrome-keyring.gpg] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
+echo "Installing dependencies..."
 sudo apt-get update
-sudo apt-get install -y google-chrome-stable
+sudo apt-get install -y wget curl unzip
+
+echo "Installing Google Chrome..."
+wget -q -O google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo apt-get install -y ./google-chrome.deb
+rm google-chrome.deb
 
 echo "Google Chrome installed successfully!"
