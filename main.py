@@ -18,7 +18,12 @@ def capture_webgl_screenshot():
     chrome_options.add_argument("--use-gl=swiftshader")
 
     # Use webdriver-manager to get ChromeDriver automatically
-    driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+
+service = Service(ChromeDriverManager().install())
+driver = webdriver.Chrome(service=service, options=chrome_options)
+
 
     try:
         # Load WebGL website
