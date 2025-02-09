@@ -23,7 +23,7 @@ def capture_webgl_screenshot():
     chrome_path = "/usr/bin/google-chrome-stable"
     if not os.path.exists(chrome_path):
         chrome_path = "/usr/bin/google-chrome"
-    
+
     chrome_options.binary_location = chrome_path
 
     # Corrected WebDriver setup
@@ -32,12 +32,14 @@ def capture_webgl_screenshot():
 
     try:
         # Load Google for testing network connectivity
+        print("Attempting to load Google...")
         driver.get("https://www.google.com/")
         time.sleep(5)  # Ensure full page load
         
         # Log page title for debugging
-        print("Page title:", driver.title)
-        
+        page_title = driver.title
+        print(f"Page title: {page_title}")
+
         # Screenshot and save
         screenshot_path = "webgl_screenshot.png"
         driver.save_screenshot(screenshot_path)
@@ -46,8 +48,12 @@ def capture_webgl_screenshot():
         with open(screenshot_path, "rb") as image_file:
             base64_image = base64.b64encode(image_file.read()).decode("utf-8")
 
-        # Extract WebGL-related content (keeping for WebGL future use)
-        webgl_text = "Test completed. Check logs for page title."
+        # Extract WebGL-related content (for future WebGL use)
+        webgl_text = f"Test completed. Page title: {page_title}"
+
+    except Exception as e:
+        webgl_text = f"Error loading page: {str(e)}"
+        print("Error:", str(e))
 
     finally:
         driver.quit()
