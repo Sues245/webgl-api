@@ -32,7 +32,8 @@ def capture_webgl_screenshot():
 
     try:
         # Load WebGL website
-        driver.get("https://get.webgl.org/")
+        proxy_url = "https://api.allorigins.win/raw?url=https://webglreport.com/"
+driver.get(proxy_url)
         time.sleep(5)  # Ensure full page load
 
         # Screenshot and save
