@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+import os
 import time
 import base64
 
@@ -17,6 +18,9 @@ def capture_webgl_screenshot():
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--enable-webgl")
     chrome_options.add_argument("--use-gl=swiftshader")
+
+    # Manually set Chrome binary path (important for Render!)
+    chrome_options.binary_location = "/usr/bin/google-chrome-stable"
 
     # Corrected WebDriver setup
     service = Service(ChromeDriverManager().install())
