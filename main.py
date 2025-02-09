@@ -31,10 +31,13 @@ def capture_webgl_screenshot():
     driver = webdriver.Chrome(service=service, options=chrome_options)
 
     try:
-        # Load WebGL website
+        # Load Google for testing network connectivity
         driver.get("https://www.google.com/")
         time.sleep(5)  # Ensure full page load
-
+        
+        # Log page title for debugging
+        print("Page title:", driver.title)
+        
         # Screenshot and save
         screenshot_path = "webgl_screenshot.png"
         driver.save_screenshot(screenshot_path)
@@ -43,8 +46,8 @@ def capture_webgl_screenshot():
         with open(screenshot_path, "rb") as image_file:
             base64_image = base64.b64encode(image_file.read()).decode("utf-8")
 
-        # Extract WebGL-related content
-        webgl_text = driver.find_element("xpath", "//*[@id='info']").text
+        # Extract WebGL-related content (keeping for WebGL future use)
+        webgl_text = "Test completed. Check logs for page title."
 
     finally:
         driver.quit()
