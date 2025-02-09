@@ -19,8 +19,12 @@ def capture_webgl_screenshot():
     chrome_options.add_argument("--enable-webgl")
     chrome_options.add_argument("--use-gl=swiftshader")
 
-    # Manually set Chrome binary path
-    chrome_options.binary_location = "/usr/bin/google-chrome-stable"
+    # Verify Chrome installation and set binary path
+    chrome_path = "/usr/bin/google-chrome-stable"
+    if not os.path.exists(chrome_path):
+        chrome_path = "/usr/bin/google-chrome"
+    
+    chrome_options.binary_location = chrome_path
 
     # Corrected WebDriver setup
     service = Service(ChromeDriverManager().install())
