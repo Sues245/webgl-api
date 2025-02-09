@@ -1,27 +1,24 @@
 from fastapi import FastAPI
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
 import time
 import base64
-import os
 
 # Initialize FastAPI
 app = FastAPI()
-
-# Path to ChromeDriver (Change this if needed)
-CHROME_DRIVER_PATH = "/usr/bin/chromedriver"  # Default path for Linux server
 
 # Function to run WebGL in a headless browser and capture output
 def capture_webgl_screenshot():
     chrome_options = Options()
     chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--enable-webgl")
     chrome_options.add_argument("--use-gl=swiftshader")
-    chrome_options.add_argument("--disable-gpu")
 
-    service = Service(CHROME_DRIVER_PATH)
-    driver = webdriver.Chrome(service=service, options=chrome_options)
+    # Use webdriver-manager to get ChromeDriver automatically
+    driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
 
     try:
         # Load WebGL website
@@ -49,6 +46,3 @@ def capture_webgl_screenshot():
 def fetch_webgl():
     result = capture_webgl_screenshot()
     return {"webgl_data": result}
-
-# To run this API, use:
-# uvicorn main:app --host 0.0.0.0 --port 8000
