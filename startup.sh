@@ -10,4 +10,10 @@ wget -q -O /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stab
 sudo dpkg -i /tmp/chrome.deb || sudo apt-get -fy install
 rm /tmp/chrome.deb
 
-echo "Google Chrome installed successfully!"
+echo "Verifying Chrome installation..."
+if command -v google-chrome-stable; then
+    echo "Chrome installed successfully!"
+else
+    echo "Chrome installation failed!"
+    exit 1
+fi
